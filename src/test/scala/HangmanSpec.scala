@@ -10,13 +10,19 @@ class HangmanSpec extends AnyWordSpec:
       createEmptyBottomRow(2) should be("_ _ " + eol)
       createEmptyBottomRow(3) should be("_ _ _ " + eol)
     }
-/* 
-    "have a scalable cell " in {
-      cells(1, 1) should be("| |" + eol)
-      cells(1, 2) should be("| | |" + eol)
-      cells(2, 1) should be("|  |" + eol)
-    }
+ 
+    "have a scalable gameField " in {
+      createEmptyGameField(1) should be("               " + eol
+                                       +"               " + eol
+                                       +"               " + eol
+                                       +"               " + eol
+                                       +"               " + eol
+                                       +"_ " + eol)
+                                      
 
+
+    }
+    /*
     "hava a cell as String in form '|   |   |   |'" in {
       cells() should be("|   |   |   |" + eol)
     }
