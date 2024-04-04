@@ -28,3 +28,11 @@ createEmptyGameField(secretWord.length())
 def evaluateGuess(guess: String): Boolean = {
   secretWord.contains(guess.charAt(0))
 }
+
+case class Person(name: String)
+
+val firstPerson = Person("Hans")
+
+val updatedPerson = firstPerson.copy(name = "Erik")
+
+val updatedPerson = updatedPerson.copy(name = "Jim")
