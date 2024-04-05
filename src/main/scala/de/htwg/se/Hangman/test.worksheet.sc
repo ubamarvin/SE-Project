@@ -31,7 +31,7 @@ def evaluateGuess(guess: String): Boolean = {
 // The Gentlemens approach
 
 case class playField()
-
+//new
 case class ImmutablePerson(name: String, age: Int) {
   def changeName(newName: String): ImmutablePerson = {
     // Create a new instance of ImmutablePerson with the updated name
@@ -59,4 +59,36 @@ val updatedPerson2 = updatedPerson1.incrementAge()
 // Output the updated state
 println(
   "Updated State: " + updatedPerson2
+) // Output: Updated State: ImmutablePerson(Bob,31)
+
+/*To avoid explicitly creating a new val for each copy, you can chain the method calls
+ together. Since each method returns a new instance of ImmutablePerson, you can immediately
+ call another method on the result without assigning it to a val. Here's how you can do it:*/
+
+case class ImmutablePerson2(name: String, age: Int) {
+  def changeName(newName: String): ImmutablePerson = {
+    // Create a new instance of ImmutablePerson with the updated name
+    this.copy(name = newName)
+  }
+
+  def incrementAge(): ImmutablePerson2 = {
+    // Create a new instance of ImmutablePerson with the incremented age
+    this.copy(age = age + 1)
+  }
+}
+
+// Create an immutable person object
+val immutablePerson = ImmutablePerson2("Alice", 30)
+
+// Output the initial state
+println(
+  "Initial State: " + immutablePerson2
+) // Output: Initial State: ImmutablePerson(Alice,30)
+
+// Update the immutable person object
+val updatedPerson = immutablePerson2.changeName("Bob").incrementAge()
+
+// Output the updated state
+println(
+  "Updated State: " + updatedPerson
 ) // Output: Updated State: ImmutablePerson(Bob,31)
