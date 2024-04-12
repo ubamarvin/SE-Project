@@ -6,11 +6,8 @@ object HangmanGame {
     "Recycling",
     "Versicherung",
     "Uni",
-<<<<<<< HEAD
     "Hausnummer",
-=======
     "Telefon",
->>>>>>> 4e13a0a69eafb152cfb8761638b4dc0029844740
     "Überraschungsei",
     "Xylophon"
   )
