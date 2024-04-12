@@ -1,7 +1,15 @@
 import scala.util.Random
 
 object HangmanGame {
-  val words = Array("Typ", "Recycling", "Versicherung", "Uni", "Gymnastik", "Überraschungsei", "Xylophon")
+  val words = Array(
+    "Tip",
+    "Recycling",
+    "Versicherung",
+    "Uni",
+    "Gymnastik",
+    "Überraschungsei",
+    "Xylophon"
+  )
   val random = new Random()
   val secretWord = words(random.nextInt(words.length)).toUpperCase()
 
@@ -11,7 +19,7 @@ object HangmanGame {
     " |",
     " |",
     " |",
-    "|"
+    " |"
   )
 
   val emptyBottomRow = "_ "
@@ -22,11 +30,13 @@ object HangmanGame {
   val gameFieldStartRow2 = "               " + sys.props("line.separator")
   val gameFieldStartRow1 = "               " + sys.props("line.separator")
 
-  def createEmptyBottomRow(lengthOfWord: Int): String = 
+  def createEmptyBottomRow(lengthOfWord: Int): String =
     emptyBottomRow * lengthOfWord + sys.props("line.separator")
 
-  def createEmptyGameField(lengthOfWord: Int): String = 
-    gameFieldStartRow5 + gameFieldStartRow4 + gameFieldStartRow3 + gameFieldStartRow2 + gameFieldStartRow1 + createEmptyBottomRow(lengthOfWord)
+  def createEmptyGameField(lengthOfWord: Int): String =
+    gameFieldStartRow5 + gameFieldStartRow4 + gameFieldStartRow3 + gameFieldStartRow2 + gameFieldStartRow1 + createEmptyBottomRow(
+      lengthOfWord
+    )
 
   def readPlayerGuess(): Char = {
     println("Guess a letter:")
@@ -61,11 +71,15 @@ object HangmanGame {
     }
 
     // Fill in guessed letters in the bottom row
-    val filledBottomRow = secretWord.map { char =>
-      if (guessedLetters.contains(char)) char else '_'
-    }.mkString(" ") + sys.props("line.separator")
+    val filledBottomRow = secretWord
+      .map { char =>
+        if (guessedLetters.contains(char)) char else '_'
+      }
+      .mkString(" ") + sys.props("line.separator")
 
-    updatedGameField.mkString(sys.props("line.separator")) + sys.props("line.separator") + filledBottomRow
+    updatedGameField.mkString(sys.props("line.separator")) + sys.props(
+      "line.separator"
+    ) + filledBottomRow
   }
 
   def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char]): Unit = {
@@ -77,7 +91,8 @@ object HangmanGame {
       println(updateGameField(wrongAttempts, guessedLetters))
       val guess = readPlayerGuess()
       val updatedGuesses = guessedLetters + guess
-      val updatedAttempts = if (secretWord.contains(guess)) wrongAttempts else wrongAttempts + 1
+      val updatedAttempts =
+        if (secretWord.contains(guess)) wrongAttempts else wrongAttempts + 1
       hangmanGame(updatedAttempts, updatedGuesses)
     }
   }
