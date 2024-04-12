@@ -6,7 +6,7 @@ object HangmanGame {
     "Recycling",
     "Versicherung",
     "Uni",
-    "Gymnastik",
+    "Telefon",
     "Überraschungsei",
     "Xylophon"
   )
