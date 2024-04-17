@@ -11,6 +11,13 @@ object HangmanGame {
     "Überraschungsei",
     "Xylophon"
   )
+  // Habe dieses hinzugefügt, da es einfach zu testen ist
+  // Dadurch sehen wir ob die Tests im Allgemeinen funktionieren
+  def printHello(): String = {
+    val msg = "hello"
+    msg
+  }
+
   val random = new Random()
   val secretWord = words(random.nextInt(words.length)).toUpperCase()
 
