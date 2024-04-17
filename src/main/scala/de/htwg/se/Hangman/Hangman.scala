@@ -23,14 +23,6 @@ object HangmanGame {
     " |"
   )
 
-  val emptyBottomRow = "_ "
-
-  val gameFieldStartRow5 = "               " + sys.props("line.separator")
-  val gameFieldStartRow4 = "               " + sys.props("line.separator")
-  val gameFieldStartRow3 = "               " + sys.props("line.separator")
-  val gameFieldStartRow2 = "               " + sys.props("line.separator")
-  val gameFieldStartRow1 = "               " + sys.props("line.separator")
-
   def readPlayerGuess(): Char = {
     println("Guess a letter:")
     scala.io.StdIn.readLine().toUpperCase().head
