@@ -31,24 +31,21 @@ object HangmanGame {
   val gameFieldStartRow2 = "               " + sys.props("line.separator")
   val gameFieldStartRow1 = "               " + sys.props("line.separator")
 
-  def createEmptyBottomRow(lengthOfWord: Int): String =
-    emptyBottomRow * lengthOfWord + sys.props("line.separator")
-
-  def createEmptyGameField(lengthOfWord: Int): String =
-    gameFieldStartRow5 + gameFieldStartRow4 + gameFieldStartRow3 + gameFieldStartRow2 + gameFieldStartRow1 + createEmptyBottomRow(
-      lengthOfWord
-    )
-
   def readPlayerGuess(): Char = {
     println("Guess a letter:")
     scala.io.StdIn.readLine().toUpperCase().head
   }
 
-  def updateGameField(wrongAttempts: Int, guessedLetters: Set[Char]): String = {
+  def updateGameField(
+      wrongAttempts: Int,
+      guessedLetters: Set[Char],
+      secretWord: String
+  ): String = {
     val updatedGameField = hangmanArt.clone()
 
     // Draw the Hangman figure based on the number of wrong attempts
     wrongAttempts match {
+      // case proportion / wrongattempts
       case 1 =>
         updatedGameField(2) = " |    O"
       case 2 =>
@@ -82,14 +79,14 @@ object HangmanGame {
       "line.separator"
     ) + filledBottomRow
   }
-
+  // Tail-recursion?
   def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char]): Unit = {
     if (secretWord.toSet.subsetOf(guessedLetters)) {
       println("Congratulations! You guessed the word correctly.")
-    } else if (wrongAttempts >= 6) {
+    } else if (wrongAttempts > secretWord.length()) {
       println("Sorry, you lost. The word was: " + secretWord)
     } else {
-      println(updateGameField(wrongAttempts, guessedLetters))
+      println(updateGameField(wrongAttempts, guessedLetters, secretWord))
       val guess = readPlayerGuess()
       val updatedGuesses = guessedLetters + guess
       val updatedAttempts =
