@@ -29,17 +29,13 @@ object HangmanGame {
     " |",
     " |"
   )
-
+  // untested
   def readPlayerGuess(): Char = {
     println("Guess a letter:")
     scala.io.StdIn.readLine().toUpperCase().head
   }
-
-  def updateGameField(
-      wrongAttempts: Int,
-      guessedLetters: Set[Char],
-      secretWord: String
-  ): String = {
+  // untested
+  def updateGameField(wrongAttempts: Int, guessedLetters: Set[Char], secretWord: String): String = {
     val updatedGameField = hangmanArt.clone()
 
     // Draw the Hangman figure based on the number of wrong attempts
@@ -68,17 +64,17 @@ object HangmanGame {
     }
 
     // Fill in guessed letters in the bottom row
+
     val filledBottomRow = secretWord
       .map { char =>
         if (guessedLetters.contains(char)) char else '_'
       }
       .mkString(" ") + sys.props("line.separator")
 
-    updatedGameField.mkString(sys.props("line.separator")) + sys.props(
-      "line.separator"
-    ) + filledBottomRow
+    updatedGameField.mkString(sys.props("line.separator")) + sys.props("line.separator") + filledBottomRow
   }
   // Tail-recursion?
+  // untested
   def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char]): Unit = {
     if (secretWord.toSet.subsetOf(guessedLetters)) {
       println("Congratulations! You guessed the word correctly.")
@@ -93,7 +89,7 @@ object HangmanGame {
       hangmanGame(updatedAttempts, updatedGuesses)
     }
   }
-
+  // untested
   def main(args: Array[String]): Unit = {
     hangmanGame(0, Set.empty)
   }
