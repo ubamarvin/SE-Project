@@ -18,8 +18,8 @@ object HangmanGame {
     msg
   }
 
-  val random = new Random()
-  val secretWord = words(random.nextInt(words.length)).toUpperCase()
+  // val random = new Random()
+  // val secretWord = words(random.nextInt(words.length)).toUpperCase()
 
   val hangmanArt = Array(
     "  __",
@@ -75,7 +75,7 @@ object HangmanGame {
   }
   // Tail-recursion?
   // untested
-  def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char]): Unit = {
+  def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char], secretWord: String): Unit = {
     if (secretWord.toSet.subsetOf(guessedLetters)) {
       println("Congratulations! You guessed the word correctly.")
     } else if (wrongAttempts > secretWord.length()) {
@@ -86,11 +86,13 @@ object HangmanGame {
       val updatedGuesses = guessedLetters + guess
       val updatedAttempts =
         if (secretWord.contains(guess)) wrongAttempts else wrongAttempts + 1
-      hangmanGame(updatedAttempts, updatedGuesses)
+      hangmanGame(updatedAttempts, updatedGuesses, secretWord)
     }
   }
   // untested
   def main(args: Array[String]): Unit = {
-    hangmanGame(0, Set.empty)
+    val random = new Random()
+    val secretWord = words(random.nextInt(words.length)).toUpperCase()
+    hangmanGame(0, Set.empty, secretWord)
   }
 }
