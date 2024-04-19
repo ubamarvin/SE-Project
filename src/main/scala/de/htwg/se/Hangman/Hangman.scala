@@ -75,24 +75,57 @@ object HangmanGame {
   }
   // Tail-recursion?
   // untested
-  def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char], secretWord: String): Unit = {
-    if (secretWord.toSet.subsetOf(guessedLetters)) {
-      println("Congratulations! You guessed the word correctly.")
-    } else if (wrongAttempts > secretWord.length()) {
-      println("Sorry, you lost. The word was: " + secretWord)
-    } else {
-      println(updateGameField(wrongAttempts, guessedLetters, secretWord))
-      val guess = readPlayerGuess()
-      val updatedGuesses = guessedLetters + guess
-      val updatedAttempts =
-        if (secretWord.contains(guess)) wrongAttempts else wrongAttempts + 1
-      hangmanGame(updatedAttempts, updatedGuesses, secretWord)
-    }
+  // Soll was testbares zurückwerfen
+  def hangmanGame(wrongAttempts: Int, guessedLetters: Set[Char], secretWord: String): String = {
+
+    // if (secretWord.toSet.subsetOf(guessedLetters)) {
+    //  println("Congratulations! You guessed the word correctly.")
+    guessedLetterInWord(secretWord, guessedLetters)
+
+    // } else if (wrongAttempts > secretWord.length()) {
+    //  println("Sorry, you lost. The word was: " + secretWord)
+    checkIfLost(wrongAttempts, secretWord)
+
+    // } else {
+    println(updateGameField(wrongAttempts, guessedLetters, secretWord))
+    val guess = readPlayerGuess()
+    val updatedGuesses = guessedLetters + guess
+
+    val updatedAttempts = updateAttempts(secretWord, wrongAttempts, guess, updatedGuesses);
+    //   if (secretWord.contains(guess)) wrongAttempts else wrongAttempts + 1
+    hangmanGame(updatedAttempts, updatedGuesses, secretWord)
   }
+
+  def updateAttempts(secretWord: String, wrongAttempts: Int, guess: Char, updatedGuesses: Set[Char]): Int = {
+    val updatedAttempts =
+      if (secretWord.contains(guess)) wrongAttempts else wrongAttempts + 1
+    // hangmanGame(updatedAttempts, updatedGuesses, secretWord)
+    updatedAttempts
+  }
+  // Soll das garnicht zurückwerfen, falsch von mir implementiert
+  def guessedLetterInWord(secretWord: String, guessedLetters: Set[Char]): String = {
+    val secretWordSet = secretWord.toSet
+
+    val msg =
+      if (guessedLetters.subsetOf(secretWordSet)) "Congratulations! You guessed the letter correctly."
+      else "Sorry, the letter you guessed is not in the word."
+    msg
+  }
+
+  def checkIfLost(wrongAttempts: Int, secretWord: String): String = {
+    val msg =
+      if (wrongAttempts > secretWord.length()) "Sorry, you have lost. The Word was: " + secretWord
+      else ""
+    msg
+  }
+
   // untested
   def main(args: Array[String]): Unit = {
     val random = new Random()
     val secretWord = words(random.nextInt(words.length)).toUpperCase()
-    hangmanGame(0, Set.empty, secretWord)
+    println(hangmanGame(0, Set.empty, secretWord))
+    // Println(hangmangame(...))
   }
 }
+//alle fun mit reutn value no iunit
+// ifs to def

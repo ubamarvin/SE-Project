@@ -29,34 +29,3 @@ def evaluateGuess(guess: String): Boolean = {
   secretWord.contains(guess.charAt(0))
 }
 // The Gentlemens approach
-
-case class playField()
-//new
-case class ImmutablePerson(name: String, age: Int) {
-  def changeName(newName: String): ImmutablePerson = {
-    // Create a new instance of ImmutablePerson with the updated name
-    this.copy(name = newName)
-  }
-
-  def incrementAge(): ImmutablePerson = {
-    // Create a new instance of ImmutablePerson with the incremented age
-    this.copy(age = age + 1)
-  }
-}
-
-// Create an immutable person object
-val immutablePerson = ImmutablePerson("Alice", 30)
-
-// Output the initial state
-println(
-  "Initial State: " + immutablePerson
-) // Output: Initial State: ImmutablePerson(Alice,30)
-
-// Update the immutable person object
-val updatedPerson1 = immutablePerson.changeName("Bob")
-val updatedPerson2 = updatedPerson1.incrementAge()
-
-// Output the updated state
-println(
-  "Updated State: " + updatedPerson2
-) // Output: Updated State: ImmutablePerson(Bob,31)
